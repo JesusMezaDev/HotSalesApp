@@ -1,0 +1,1 @@
+export { default as i18nModule } from './i18nModule';

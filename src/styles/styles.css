@@ -1,0 +1,81 @@
+.btn.btn-primary {
+    color: #FFFFFF;
+}
+
+.btn.btn-primary:disabled {
+    color: #FFFFFF;
+}
+
+.btn.btn-primary:active {
+    color: #FFFFFF!important;
+}
+
+.btn.btn-primary:hover {
+    color: #FFFFFF;
+}
+
+.btn.btn-outline-primary:hover {
+    color: #FFFFFF;
+}
+
+.btn.btn-outline-primary:active {
+    color: #FFFFFF!important;
+}
+
+.btn.btn-success {
+    color: #FFFFFF;
+}
+
+.btn.btn-success:disabled {
+    color: #FFFFFF;
+}
+
+.btn.btn-success:active {
+    color: #FFFFFF!important;
+}
+
+.btn.btn-success:hover {
+    color: #FFFFFF;
+}
+
+.btn.btn-outline-success:hover {
+    color: #FFFFFF;
+}
+
+.btn.btn-outline-success:active {
+    color: #FFFFFF!important;
+}
+
+.container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
+    max-width: 99vw!important;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9997;
+}
+
+.spinner {
+    z-index: 9999;
+}
+
+
+.spinner-container {
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9998;
+}
+
+
+.spinner-enter-active,
+.spinner-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.spinner-enter-from,
+.spinner-leave-to {
+    opacity: 0;
+}

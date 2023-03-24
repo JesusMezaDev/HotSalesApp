@@ -1,0 +1,1 @@
+export { useModule } from './useModule';

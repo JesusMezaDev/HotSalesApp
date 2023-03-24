@@ -1,0 +1,14 @@
+/* Se establecen los colores por default */
+$theme-colors: (
+  "primary":    #739DD2,
+  "secondary":  #35414C,
+  "success":    #7AC943,
+  "info":       #0DCAF0,
+  "warning":    #FFC107,
+  "danger":     #C4272C,
+  "light":      #F8F9FA,
+  "dark":       #212529
+);
+
+/* Se importa Bootstrap */
+@import 'bootstrap/scss/bootstrap.scss';
