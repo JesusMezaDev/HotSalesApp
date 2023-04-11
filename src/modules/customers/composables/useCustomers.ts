@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { onDeactivated, ref } from 'vue';
 
 import axios from 'axios';
 
@@ -9,9 +9,18 @@ import type { ISettlement, IAddress, ISettlementsResponse } from '@/modules/cust
 import type { ICustomerRequest } from '@/modules/customers/interfaces/customerRequest.interface';
 
 export const useCustomers = () => {
+    const codigopostal = ref<HTMLInputElement>();
     const settlements = ref<ISettlement[]>();
-    const address = ref<IAddress>();
-    const customer = ref<ICustomerRequest>({
+    const addressTemplate = ref<IAddress>({
+        State_KeyCode: '',
+        City_KeyCode: '',
+        MunicipalityKeyCode: '',
+        State_Name: '',
+        City_Name: '',
+        Municipality_Name: '',
+    });
+    const address = ref<IAddress>(addressTemplate.value);
+    const customerTemplate = ref<ICustomerRequest>({
         annotations: undefined,
         birthDate: undefined,
         email: undefined,
@@ -23,7 +32,7 @@ export const useCustomers = () => {
         settlement_Id: 0,
         streetAddress: undefined
     });
-    
+    const customer = ref<ICustomerRequest>(customerTemplate.value);
 
     const getAddress = async() => {
         const txtCP = <HTMLInputElement>document.getElementById('txtCP');
@@ -78,22 +87,7 @@ export const useCustomers = () => {
             const { data } = await hotSalesApi.post(`/customers`, customerRequest);
             const { Ok, Message, Data } = data;
             
-            if (Ok) {
-                customer.value = {
-                    annotations: undefined,
-                    birthDate: undefined,
-                    email: undefined,
-                    gender: '0',
-                    imageUrl: '/src/assets/NoImagePlaceholder.png',
-                    lastName: undefined,
-                    name: '',
-                    phone: undefined,
-                    settlement_Id: 0,
-                    streetAddress: undefined
-                }
-                
-                router.replace({ name: 'home' });
-            }
+            returnHome();
         } catch (error) {
             if(axios.isAxiosError(error)) {
                 console.error(error)
@@ -104,11 +98,23 @@ export const useCustomers = () => {
         }
     }
 
+    const returnHome = () => {
+        router.replace({ name: 'home' });
+    }
+
+    onDeactivated(() => {
+        codigopostal.value!.value = '';
+        customer.value = { ...customerTemplate.value };
+        address.value = { ...addressTemplate.value };
+    });
+
     return {
         address,
         customer,
-        settlements,
         getAddress,
+        returnHome,
         saveCustomer,
+        settlements,
+        codigopostal,
     }
 }

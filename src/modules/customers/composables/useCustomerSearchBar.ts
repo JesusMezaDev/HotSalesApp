@@ -18,7 +18,7 @@ export const useCustomerSearchBar = () => {
     onMounted(() => {
         debouncer
         .pipe(
-            debounceTime(500)
+            debounceTime(300)
         )
         .subscribe(value => searchCustomer(value));
     });

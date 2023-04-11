@@ -1,5 +1,5 @@
 <template>
-    <div class="row m-2 align-items-center">
+    <div class="row m-2 mt-4 align-items-center">
         <div class="col">
             <h3>
                 <i class="bi-person-circle"></i>

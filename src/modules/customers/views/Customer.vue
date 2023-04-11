@@ -39,7 +39,7 @@
                                 <div class="col">
                                     <div class="input-group">
                                         <span class="input-group-text w-150">Fecha Nacimiento</span>
-                                        <input type="date" class="form-control" placeholder="ejemplo" v-model="customer.birthDate" @keydown.enter.prevent>
+                                        <input type="date" class="form-control" v-model="customer.birthDate" @keydown.enter.prevent>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                         <div class="col">
                             <div class="input-group">
                                 <span class="input-group-text w-150">Código Postal</span>
-                                <input id="txtCP" type="number" class="form-control" placeholder="01000" @keydown.enter.prevent="getAddress">
+                                <input id="txtCP" type="number" class="form-control" placeholder="01000" @keydown.enter.prevent="getAddress" ref="codigopostal">
                             </div>
                         </div>
                         <div class="col">
@@ -132,6 +132,12 @@
         </div>
         <div class="row m-2">
             <div class="col">
+                <button type="button" class="btn btn-danger float-firts" @click="returnHome">
+                    <i class="bi-x-circle"></i>
+                    Cancelar
+                </button>
+            </div>
+            <div class="col">
                 <button type="submit" class="btn btn-success float-end">
                     <i class="bi-person-plus"></i>
                     Guardar
@@ -148,7 +154,9 @@
         customer,
         settlements,
         getAddress,
+        returnHome,
         saveCustomer,
+        codigopostal,
     } = useCustomers();
 </script>
 
@@ -160,14 +168,9 @@
     margin: 0;
     }
 
-    /* Firefox */
-    input[type=number] {
-    -moz-appearance: textfield;
-    }
-
-    ::-webkit-calendar-picker-indicator {
+    /* ::-webkit-calendar-picker-indicator {
         filter: invert(1);
-    }
+    } */
 
     .input-group-text.w-150 {
         width: 150px;
