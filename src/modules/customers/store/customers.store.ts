@@ -2,7 +2,7 @@ import { ref } from 'vue';
 
 import { defineStore } from 'pinia';
 
-import type { ICustomer } from '../interfaces/customerResponse.interface';
+import type { ICustomer } from '@/modules/customers/interfaces/customerResponse.interface';
 
 export const useCustomersStore = defineStore('customerStore', () => {
     const customerStoreList = ref<ICustomer[]>([]);

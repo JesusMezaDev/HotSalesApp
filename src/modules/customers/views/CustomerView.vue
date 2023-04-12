@@ -132,7 +132,7 @@
         </div>
         <div class="row m-2">
             <div class="col">
-                <button type="button" class="btn btn-danger float-firts" @click="returnHome">
+                <button type="button" class="btn btn-danger float-firts" @click="() => router.replace({ name: 'customers' })">
                     <i class="bi-x-circle"></i>
                     Cancelar
                 </button>
@@ -148,13 +148,13 @@
 </template>
 
 <script setup lang="ts">
+    import router from '@/router';
     import { useCustomers } from '@/modules/customers/composables';
     const {
         address,
         customer,
         settlements,
         getAddress,
-        returnHome,
         saveCustomer,
         codigopostal,
     } = useCustomers();
@@ -171,8 +171,4 @@
     /* ::-webkit-calendar-picker-indicator {
         filter: invert(1);
     } */
-
-    .input-group-text.w-150 {
-        width: 150px;
-    }
 </style>

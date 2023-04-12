@@ -84,3 +84,7 @@
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.input-group-text.w-150 {
+    width: 150px;
+}

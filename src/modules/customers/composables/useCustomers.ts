@@ -32,7 +32,7 @@ export const useCustomers = () => {
         settlement_Id: 0,
         streetAddress: undefined
     });
-    const customer = ref<ICustomerRequest>(customerTemplate.value);
+    const customer = ref<ICustomerRequest>({ ...customerTemplate.value });
 
     const getAddress = async() => {
         const txtCP = <HTMLInputElement>document.getElementById('txtCP');
@@ -56,7 +56,7 @@ export const useCustomers = () => {
         return Data;
     }
 
-    const saveCustomer = async(e: Event) => {
+    const saveCustomer = async() => {
         const {
             annotations,
             birthDate,
@@ -87,7 +87,7 @@ export const useCustomers = () => {
             const { data } = await hotSalesApi.post(`/customers`, customerRequest);
             const { Ok, Message, Data } = data;
             
-            returnHome();
+            router.replace({ name: 'customers' });
         } catch (error) {
             if(axios.isAxiosError(error)) {
                 console.error(error)
@@ -96,10 +96,6 @@ export const useCustomers = () => {
                 console.error('error');
             }
         }
-    }
-
-    const returnHome = () => {
-        router.replace({ name: 'home' });
     }
 
     onDeactivated(() => {
@@ -112,7 +108,6 @@ export const useCustomers = () => {
         address,
         customer,
         getAddress,
-        returnHome,
         saveCustomer,
         settlements,
         codigopostal,

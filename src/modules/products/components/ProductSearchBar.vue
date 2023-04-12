@@ -3,12 +3,12 @@
         <div class="col">
             <div class="form-floating">
                 <input type="text" class="form-control m-1" id="txtSearch" placeholder="Buscar" v-model="searchTerm" @keyup="searchKeyUp" maxlength="50">
-                <label for="txtSearch">Buscar Cliente</label>
+                <label for="txtSearch">Buscar Producto</label>
             </div>
         </div>
         <div class="col">
-            <button class="btn btn-primary" @click="toNewCustomer">
-                <i class="bi-person-add"></i>
+            <button class="btn btn-primary" @click="() => router.replace({ name: 'product' })">
+                <i class="bi-plus-circle"></i>
                 Agregar
             </button>
         </div>
@@ -16,8 +16,9 @@
 </template>
 
 <script setup lang="ts">
-    import { useCustomerSearchBar } from '../composables/useCustomerSearchBar';
-    const { searchTerm, searchKeyUp, toNewCustomer } = useCustomerSearchBar();
+    import router from '@/router';
+    import { useProductSearch } from '../composables';
+    const { searchKeyUp, searchTerm } = useProductSearch();
 </script>
 
 <style scoped>

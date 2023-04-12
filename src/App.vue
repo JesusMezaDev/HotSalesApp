@@ -1,14 +1,9 @@
 <script setup lang="ts">
-// import HomeView from './modules/customers/views/Customer.vue';
-// import CustomerList from './modules/customers/views/CustomerList.vue';
-
 
 </script>
 
 <template>
-  <div class="container">
-    <!-- <HomeView/> -->
-    <!-- <CustomerList /> -->
+  <div class="container-sm">
     <RouterView v-slot="{ Component, route }">
       <KeepAlive>
         <component :is="Component" :key="route.name" />
