@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-    import { useMenuCards } from '@/shared/composables/useMenuCards';
+    import { useMenuCards } from '@/shared/menu-cards/composables/useMenuCards';
     const { menus, redirectToComponent } = useMenuCards();
 </script>
 

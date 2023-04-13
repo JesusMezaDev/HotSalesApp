@@ -4,7 +4,7 @@ import router from '@/router';
 
 import type { ICustomerResponse, ICustomer } from '@/modules/customers/interfaces/customerResponse.interface'
 import { useCustomersStore } from '../store/customers.store';
-import { useDebouncer } from '@/shared/composables/useDebouncer';
+import { useDebouncer } from '@/shared/debouncer/composables/useDebouncer';
 
 export const useCustomerSearchBar = () => {
     const { saveStoreCustomerList } = useCustomersStore();

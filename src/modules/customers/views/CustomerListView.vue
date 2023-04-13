@@ -15,7 +15,7 @@
 <script setup lang="ts">
     import CustomerCard from '@/modules/customers/components/CustomerCard.vue';
     import CustomerSearch from '@/modules/customers/components/CustomerSearchBar.vue';
-    import BackToMenuButton from '@/shared/components/BackToMenuButton.vue';
+    import BackToMenuButton from '@/shared/back-to-menu/components/BackToMenuButton.vue';
 </script>
 
 <style scoped>

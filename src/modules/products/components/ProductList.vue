@@ -19,7 +19,7 @@
                     <button type="button" class="btn btn-outline-success btn-sm me-2">
                         <i class="bi-pencil"></i>
                     </button>
-                    <button type="button" class="btn btn-outline-danger btn-sm">
+                    <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(product.Product_Id)">
                         <i class="bi-x-lg"></i>
                     </button>
                 </td>
@@ -30,7 +30,9 @@
 
 <script setup lang="ts">
     import { useProductsStore } from '@/modules/products/store/products.store';
+    import { useProduct } from '@/modules/products/composables';
     const productStore = useProductsStore();
+    const { deleteProduct } = useProduct();
 </script>
 
 <style scoped>
