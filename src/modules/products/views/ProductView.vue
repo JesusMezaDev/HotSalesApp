@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="saveProduct">
+    <form @submit.prevent="save">
         <div class="row">
             <div class="col">
                 <div class="card m-3">
@@ -55,9 +55,7 @@
 <script setup lang="ts">
     import router from '@/router';
     import { useProduct } from '../composables';
-    
-
-    const { product, saveProduct } = useProduct();
+    const { product, save } = useProduct();
 </script>
 
 <style scoped>

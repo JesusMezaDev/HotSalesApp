@@ -7,9 +7,10 @@ import { useProductsStore } from '@/modules/products/store/products.store';
 import { useDialog } from '@/shared/dialog/composables';
 import { useHandleErrors } from '@/shared/handle-errors/composables/useHandleErrors';
 import { useSpinner } from '@/shared/spinner/composables/useSpinner';
+import router from '@/router';
 
 export const useProductSearch = () => {
-    const { productStoreList } = storeToRefs(useProductsStore());
+    const { productStoreList, isNewProduct } = storeToRefs(useProductsStore());
     const dialog = useDialog();
     const { handleError } = useHandleErrors();
     const { showSpinner, hideSpinner } = useSpinner();
@@ -44,5 +45,9 @@ export const useProductSearch = () => {
     return {
         searchKeyUp,
         searchTerm,
+        addNewProduct: () => {
+            isNewProduct.value = true;
+            router.replace({ name: 'product' });
+        }
     }
 }

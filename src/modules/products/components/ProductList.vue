@@ -10,13 +10,13 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            <tr v-for="product in productStore.productStoreList" class="align-middle">
+            <tr v-for="product in productStoreList" class="align-middle">
                 <td>{{ product.Name }}</td>
                 <td>{{ product.Description }}</td>
                 <td>{{ product.CategoryName }}</td>
                 <td></td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-outline-success btn-sm me-2">
+                    <button type="button" class="btn btn-outline-success btn-sm me-2" @click="getProduct(product.Product_Id)">
                         <i class="bi-pencil"></i>
                     </button>
                     <button type="button" class="btn btn-outline-danger btn-sm" @click="deleteProduct(product.Product_Id)">
@@ -29,10 +29,11 @@
 </template>
 
 <script setup lang="ts">
+    import { storeToRefs } from 'pinia';
     import { useProductsStore } from '@/modules/products/store/products.store';
-    import { useProduct } from '@/modules/products/composables';
-    const productStore = useProductsStore();
-    const { deleteProduct } = useProduct();
+    import { useProductList } from '@/modules/products/composables/useProductList';
+    const { productStoreList } = storeToRefs(useProductsStore());
+    const { deleteProduct, getProduct } = useProductList();
 </script>
 
 <style scoped>

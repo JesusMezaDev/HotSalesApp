@@ -9,8 +9,9 @@ export interface IData {
 }
 
 export interface IProduct {
-    Product_Id:     number;
-    Name:           string;
-    Description:    string | null;
-    CategoryName:   string | null;
+    Product_Id:             number;
+    Name:                   string;
+    Description?:           string | null;
+    CategoryName?:          string | null;
+    ProductCategory_Id?:    number;
 }

@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="col">
-            <button class="btn btn-primary" @click="() => router.replace({ name: 'product' })">
+            <button class="btn btn-primary" @click="addNewProduct">
                 <i class="bi-plus-circle"></i>
                 Agregar
             </button>
@@ -16,9 +16,8 @@
 </template>
 
 <script setup lang="ts">
-    import router from '@/router';
-    import { useProductSearch } from '../composables';
-    const { searchKeyUp, searchTerm } = useProductSearch();
+    import { useProductSearch } from '@/modules/products/composables';
+    const { addNewProduct, searchKeyUp, searchTerm } = useProductSearch();
 </script>
 
 <style scoped>
