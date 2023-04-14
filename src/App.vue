@@ -1,5 +1,6 @@
 <template>
   <div class="container-sm">
+    <SpinnerView />
     <RouterView v-slot="{ Component, route }">
       <KeepAlive>
         <component :is="Component" :key="route.name" />
@@ -11,6 +12,7 @@
 
 <script setup lang="ts">
   import DialogView from '@/shared/dialog/views/DialogView.vue';
+  import SpinnerView from './shared/spinner/views/SpinnerView.vue';
 </script>
 
 <style>

@@ -5,11 +5,14 @@ import axios from 'axios';
 import hotSalesApi from '@/api/hotSalesApi';
 import router from '@/router';
 
-import type { ISettlement, IAddress, ISettlementsResponse } from '@/modules/customers/interfaces/settlementsResponse.interface';
+import type { ISettlement, IAddress, ISettlementsResponse, IData } from '@/modules/customers/interfaces/settlementsResponse.interface';
 import type { ICustomerRequest } from '@/modules/customers/interfaces/customerRequest.interface';
+import { useDialog } from '@/shared/dialog/composables';
+import { useHandleErrors } from '@/shared/handle-errors/composables/useHandleErrors';
+import { useSpinner } from '@/shared/spinner/composables/useSpinner';
 
 export const useCustomers = () => {
-    const codigopostal = ref<HTMLInputElement>();
+    const postalCode = ref<HTMLInputElement>();
     const settlements = ref<ISettlement[]>();
     const addressTemplate = ref<IAddress>({
         State_KeyCode: '',
@@ -33,27 +36,42 @@ export const useCustomers = () => {
         streetAddress: undefined
     });
     const customer = ref<ICustomerRequest>({ ...customerTemplate.value });
+    const dialog = useDialog();
+    const { handleError } = useHandleErrors();
+    const { hideSpinner, showSpinner } = useSpinner();
 
     const getAddress = async() => {
         const txtCP = <HTMLInputElement>document.getElementById('txtCP');
 
         if (txtCP.value.length != 5) return;
 
-        const { Settlements, Address } = await getAddressFromDataBase(txtCP.value);
-        address.value = Address[0];
-        settlements.value = [...Settlements];
+        try {
+            const { Settlements, Address } = await getAddressFromDataBase(txtCP.value);
+            address.value = Address[0];
+            settlements.value = [...Settlements];
+        } catch (error) {
+            handleError(error);
+        }
     }
 
     const getAddressFromDataBase = async(cp: string) => {
-        const { data } = await hotSalesApi.get<ISettlementsResponse>(`/address/${ cp }`);
-        const { Ok, Message, Data } = data;
+        showSpinner();
+        try {
+            const { data } = await hotSalesApi.get<ISettlementsResponse>(`/address/${ cp }`);
+            const { Ok, Message, Data } = data;
 
-        if (!Ok) {
-            console.error(Message);
+            if (!Ok) {
+                console.error(Message);
+                return { Settlements: [], Address: []}
+            }
+            
+            hideSpinner();
+            return Data;    
+        } catch (error) {
+            hideSpinner();
+            handleError(error);
             return { Settlements: [], Address: []}
         }
-
-        return Data;
     }
 
     const saveCustomer = async() => {
@@ -83,23 +101,32 @@ export const useCustomers = () => {
             streetAddress: (streetAddress) ? streetAddress : null,
         };
 
+        showSpinner();
+
         try {
             const { data } = await hotSalesApi.post(`/customers`, customerRequest);
             const { Ok, Message, Data } = data;
-            
-            router.replace({ name: 'customers' });
+
+            if (!Ok) {
+                dialog.set({ dialogType: 'error', message: Message! });
+                dialog.show();
+                return;
+            }
+
+            dialog.set({ dialogType: 'success', message: 'Se guardó correctamente la información del cliente.',
+                onCloseDialog: ():void => {
+                    router.replace({ name: 'customers' });
+                }
+            });
+            dialog.show();
         } catch (error) {
-            if(axios.isAxiosError(error)) {
-                console.error(error)
-            }
-            else {
-                console.error('error');
-            }
+            handleError(error);
         }
+        hideSpinner();
     }
 
     onDeactivated(() => {
-        codigopostal.value!.value = '';
+        postalCode.value!.value = '';
         customer.value = { ...customerTemplate.value };
         address.value = { ...addressTemplate.value };
     });
@@ -110,6 +137,6 @@ export const useCustomers = () => {
         getAddress,
         saveCustomer,
         settlements,
-        codigopostal,
+        postalCode,
     }
 }

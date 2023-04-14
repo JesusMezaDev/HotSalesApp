@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <div class="card m-3">
-                    <h5 class="card-title m-2">Product</h5>
+                    <h5 class="card-title m-2">Producto</h5>
                     <div class="row">
                         <div class="col">
                             <div class="row m-2">

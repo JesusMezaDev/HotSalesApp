@@ -78,7 +78,7 @@
                         <div class="col">
                             <div class="input-group">
                                 <span class="input-group-text w-150">Código Postal</span>
-                                <input id="txtCP" type="number" class="form-control" placeholder="01000" @keydown.enter.prevent="getAddress" ref="codigopostal">
+                                <input id="txtCP" type="number" class="form-control" placeholder="01000" @keydown.enter.prevent="getAddress" ref="postalCode">
                             </div>
                         </div>
                         <div class="col">
@@ -156,7 +156,7 @@
         settlements,
         getAddress,
         saveCustomer,
-        codigopostal,
+        postalCode,
     } = useCustomers();
 </script>
 
