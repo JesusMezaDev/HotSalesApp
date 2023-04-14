@@ -14,7 +14,7 @@ export const useProduct = () => {
     const productTemplate = ref<IProductRequest>({
         name: '',
         description: '',
-        productCategory_Id: null,
+        productCategory_Id: 0,
     });
     const product = ref<IProductRequest>({ ...productTemplate.value });
     const { productStoreList } = storeToRefs(useProductsStore());
@@ -25,11 +25,20 @@ export const useProduct = () => {
     const saveProduct = async() => {
         showSpinner();
         try {
-            const { data } = await hotSalesApi.post(`/products`, product.value);
+            let productRequest: IProductRequest = product.value;
+            if (product.value.productCategory_Id === 0) {
+                const { productCategory_Id, ...rest } = product.value;
+                productRequest = rest;
+            }
+
+            const { data } = await hotSalesApi.post(`/products`, productRequest);
             const { Ok, Message, Data } = data;
+
+            hideSpinner();
 
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
+                dialog.show();
                 return;
             }
 
@@ -40,9 +49,9 @@ export const useProduct = () => {
             });
             dialog.show();
         } catch (error) {
+            hideSpinner();
             handleError(error);
         }
-        hideSpinner();
     }
 
     const deleteProduct = async(productId: number) => {
@@ -61,6 +70,8 @@ export const useProduct = () => {
             const { data } = await hotSalesApi.delete(`/products/${ productId }`);
             const { Ok, Message, Data } = data;
 
+            hideSpinner();
+
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message});
                 dialog.show();
@@ -69,14 +80,13 @@ export const useProduct = () => {
 
             productStoreList.value = productStoreList.value.filter(({ Product_Id }) => Product_Id !== productId);
         } catch (error) {
+            hideSpinner();
             handleError(error);
         }
-        hideSpinner();
     }
 
     onDeactivated(() => {
         product.value = { ...productTemplate.value };
-        console.log(product.value);
     });
 
     return {

@@ -20,11 +20,12 @@ export const useProductSearch = () => {
             return;
         }
 
+        showSpinner();
         try {
-            showSpinner();
             const { data } = await hotSalesApi<IProductResponse>(`/products/${ value }`);
             const { Ok, Message, Data } = data;
-            console.log(Data);
+
+            hideSpinner();
     
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
@@ -33,10 +34,9 @@ export const useProductSearch = () => {
             
             productStoreList.value = Data.Products;
         } catch (error) {
+            hideSpinner();
             handleError(error);
         }
-
-        hideSpinner();
     }
 
     const { searchKeyUp, searchTerm } = useDebouncer(searchProduct);

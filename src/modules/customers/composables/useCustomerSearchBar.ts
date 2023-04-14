@@ -26,7 +26,9 @@ export const useCustomerSearchBar = () => {
         try {
             const { data } = await hotSalesApi<ICustomerResponse>(`/customers/${ value }`);
             const { Ok, Message, Data } = data;
-
+            
+            hideSpinner();
+            
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
                 dialog.show();
@@ -35,9 +37,9 @@ export const useCustomerSearchBar = () => {
             
             saveStoreCustomerList(Data.Customers);   
         } catch (error) {
+            hideSpinner();
             handleError(error);
         }
-        hideSpinner();
     }
 
     const { searchKeyUp, searchTerm } = useDebouncer(searchCustomer);

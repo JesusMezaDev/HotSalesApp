@@ -60,12 +60,14 @@ export const useCustomers = () => {
             const { data } = await hotSalesApi.get<ISettlementsResponse>(`/address/${ cp }`);
             const { Ok, Message, Data } = data;
 
+            hideSpinner();
+
             if (!Ok) {
-                console.error(Message);
+                dialog.set({ dialogType: 'error', message: Message! });
+                dialog.show();
                 return { Settlements: [], Address: []}
             }
             
-            hideSpinner();
             return Data;    
         } catch (error) {
             hideSpinner();
@@ -106,6 +108,8 @@ export const useCustomers = () => {
         try {
             const { data } = await hotSalesApi.post(`/customers`, customerRequest);
             const { Ok, Message, Data } = data;
+            
+            hideSpinner();
 
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
@@ -120,9 +124,9 @@ export const useCustomers = () => {
             });
             dialog.show();
         } catch (error) {
+            hideSpinner();
             handleError(error);
         }
-        hideSpinner();
     }
 
     onDeactivated(() => {
