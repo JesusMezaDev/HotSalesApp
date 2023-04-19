@@ -8,11 +8,13 @@
         </div>
     </div>
     <ProductCategoriesSearch />
+    <ProductCategoriesList />
     <BackToMenuButton />
 </template>
 
 <script setup lang="ts">
     import ProductCategoriesSearch from '@/modules/product-categories/components/ProductCategoriesSearchBar.vue';
+    import ProductCategoriesList from '@/modules/product-categories/components/ProductCategoriesList.vue';
     import BackToMenuButton from '@/shared/back-to-menu/components/BackToMenuButton.vue';
 </script>
 

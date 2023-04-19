@@ -3,7 +3,7 @@
         <div class="col">
             <div class="form-floating">
                 <input type="text" class="form-control m-1" id="txtSearch" placeholder="Buscar" v-model="searchTerm" @keyup="searchKeyUp" maxlength="50">
-                <label for="txtSearch">Buscar Producto</label>
+                <label for="txtSearch">Buscar Categoría de Producto</label>
             </div>
         </div>
         <div class="col">

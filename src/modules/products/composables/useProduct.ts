@@ -10,6 +10,7 @@ import { useHandleErrors } from '@/shared/handle-errors/composables/useHandleErr
 import { useSpinner } from '@/shared/spinner/composables/useSpinner';
 import { useProductsStore } from '@/modules/products/store/products.store';
 import type { IGeneralInterface } from '@/interfaces/generalResponse.interface';
+import type { IProductCategory } from '@/modules/product-categories/interfaces/productCategory.interface';
 
 export const useProduct = () => {
     const productTemplate = ref<IProductRequest>({
@@ -18,7 +19,8 @@ export const useProduct = () => {
         productCategory_Id: 0,
     });
     const product = ref<IProductRequest>({ ...productTemplate.value });
-    const { editProduct, isNewProduct, productStoreList } = storeToRefs(useProductsStore());
+    let productCategories = ref<IProductCategory[]>([]);
+    const { editProduct, isNewProduct } = storeToRefs(useProductsStore());
     const dialog = useDialog();
     const { handleError } = useHandleErrors();
     const {hideSpinner, showSpinner } = useSpinner();
@@ -35,8 +37,6 @@ export const useProduct = () => {
             const { data } = await hotSalesApi.post<IGeneralInterface>(`/products`, productRequest);
             const { Ok, Message, Data } = data;
 
-            hideSpinner();
-
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
                 dialog.show();
@@ -50,8 +50,10 @@ export const useProduct = () => {
             });
             dialog.show();
         } catch (error) {
-            hideSpinner();
             handleError(error);
+        }
+        finally {
+            hideSpinner();
         }
     }
 
@@ -67,22 +69,11 @@ export const useProduct = () => {
             const { data } = await hotSalesApi.patch<IGeneralInterface>(`/products`, productRequest);
             const { Ok, Message, Data } = data;
 
-            hideSpinner();
-
             if (!Ok) {
                 dialog.set({ dialogType: 'error', message: Message! });
                 dialog.show();
                 return;
             }
-
-            let productListModified = productStoreList.value.filter(p => p.Product_Id !== productRequest.product_id);
-            productListModified.push({
-                Product_Id: productRequest.product_id!,
-                Name: productRequest.name,
-                ProductCategory_Id: productRequest.productCategory_Id,
-                Description: productRequest.description,
-            });
-            productStoreList.value = productListModified;
 
             dialog.set({ dialogType: 'success', message: 'El producto se guardó correctamente.',
                 onCloseDialog: (): void => {
@@ -91,17 +82,42 @@ export const useProduct = () => {
             });
             dialog.show();
         } catch (error) {
-            hideSpinner();
             handleError(error);
+        }
+        finally {
+            hideSpinner();
+        }
+    }
+
+    const getAllProductCategories = async() => {
+        showSpinner();
+        try {
+            const { data } = await hotSalesApi.get<IGeneralInterface>(`/product-categories`);
+            const { Ok, Message, Data } = data;
+
+            if (!Ok) {
+                dialog.set({ dialogType: 'error', message: Message! });
+                dialog.show();
+                return;
+            }
+
+            productCategories.value =  <IProductCategory[]>[ ...Data.ProductCategories ];
+        } catch (error) {
+            handleError(error);
+        }
+        finally {
+            hideSpinner();
         }
     }
 
     onActivated(() => {
+        getAllProductCategories();
+
         if (editProduct.value) {
             product.value = {
                 product_id: editProduct.value.Product_Id,
                 name: editProduct.value.Name,
-                productCategory_Id: 0,
+                productCategory_Id: editProduct.value.ProductCategory_Id || 0,
                 description: editProduct.value.Description || '',
             }
         }
@@ -115,6 +131,7 @@ export const useProduct = () => {
 
     return {
         product,
+        productCategories,
         save: () => {
             if (isNewProduct.value) saveProduct();
             else updateProduct();

@@ -6,8 +6,12 @@ import type { IProductCategory } from '@/modules/product-categories/interfaces/p
 
 export const useProductCategoryStore = defineStore('productCategoryStore', () => {
     const productCategoryListStore = ref<IProductCategory[]>([]);
+    const isNewProductcategory = ref<boolean>(true);
+    const editProductCategory = ref<IProductCategory>();
 
     return {
+        editProductCategory,
+        isNewProductcategory,
         productCategoryListStore,
     }
 });

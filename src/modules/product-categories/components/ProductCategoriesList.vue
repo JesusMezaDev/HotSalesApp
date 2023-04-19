@@ -28,7 +28,7 @@
 <script setup lang="ts">
     import { storeToRefs } from 'pinia';
     import { useProductCategoryStore } from '@/modules/product-categories/store/productCategory.store';
-import { useProductCategoryList } from '../composables/useProductCategoryList';
+    import { useProductCategoryList } from '@/modules/product-categories/composables/useProductCategoryList';
     const { productCategoryListStore } = storeToRefs(useProductCategoryStore());
     const { getProductCategory, deleteProductCategory } = useProductCategoryList();
 </script>

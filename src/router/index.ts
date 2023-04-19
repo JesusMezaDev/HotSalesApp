@@ -29,6 +29,16 @@ const router = createRouter({
       name: 'product',
       component: () => import(/* webpackChunkName: "Product" */ '@/modules/products/views/ProductView.vue')
     },
+    {
+      path: '/product-categories',
+      name: 'product-categories',
+      component: () => import(/* webpackChunkName: "Product-Category-List" */ '@/modules/product-categories/views/ProductCategoriesListView.vue')
+    },
+    {
+      path: '/product-category',
+      name: 'product-category',
+      component: () => import(/* webpackChunkName: "Product-Category" */ '@/modules/product-categories/views/ProductCategoriesView.vue')
+    },
   ]
 });
 

@@ -1,3 +1,4 @@
+import { onActivated } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import hotSalesApi from '@/api/hotSalesApi';
@@ -15,7 +16,7 @@ export const useProductSearch = () => {
     const { handleError } = useHandleErrors();
     const { showSpinner, hideSpinner } = useSpinner();
 
-    const searchProduct = async(value: string) => {
+    const searchProducts = async(value: string) => {
         if (value.trim().length === 0) {
             productStoreList.value = [];
             return;
@@ -40,7 +41,11 @@ export const useProductSearch = () => {
         }
     }
 
-    const { searchKeyUp, searchTerm } = useDebouncer(searchProduct);
+    const { searchKeyUp, searchTerm } = useDebouncer(searchProducts);
+
+    onActivated(() => {
+        searchProducts(searchTerm.value);
+    });
 
     return {
         searchKeyUp,

@@ -18,6 +18,7 @@
                                         <span class="input-group-text w-150">Categoría</span>
                                         <select class="form-select" v-model="product.productCategory_Id">
                                             <option value="0">- Seleccione un elemento -</option>
+                                            <option v-for="productCategory in productCategories" :value="productCategory.ProductCategory_Id">{{ productCategory.Name }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -54,8 +55,8 @@
 
 <script setup lang="ts">
     import router from '@/router';
-    import { useProduct } from '../composables';
-    const { product, save } = useProduct();
+    import { useProduct } from '@/modules/products/composables';
+    const { product, productCategories, save } = useProduct();
 </script>
 
 <style scoped>
