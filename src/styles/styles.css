@@ -88,3 +88,9 @@ input[type=number] {
 .input-group-text.w-150 {
     width: 150px;
 }
+
+.pagination {
+    --bs-pagination-color: #739DD2;
+    --bs-pagination-active-bg: #739DD2;
+    --bs-pagination-active-border-color: #739DD2;
+}

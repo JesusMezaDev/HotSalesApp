@@ -10,12 +10,14 @@
     <ProductSearch />
     <ProductList />
     <BackToMenuButton />
+    <PageNavigation />
 </template>
 
 <script setup lang="ts">
     import ProductSearch from '@/modules/products/components/ProductSearchBar.vue';
     import ProductList from '@/modules/products/components/ProductList.vue';
     import BackToMenuButton from '@/shared/back-to-menu/components/BackToMenuButton.vue';
+    import PageNavigation from '@/shared/page-navigation/views/PageNavigationView.vue';
 </script>
 
 <style scoped>
