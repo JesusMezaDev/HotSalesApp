@@ -28,4 +28,5 @@ coverage
 *.sw?
 
 # Environments
-environments/
+environments/*
+!environments/.env.template
