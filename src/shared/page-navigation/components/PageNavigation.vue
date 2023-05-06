@@ -1,6 +1,6 @@
 <template>
-    <div v-if="showPagination" class="col d-flex justify-content-center">
-        <div class="row">
+    <div v-if="showPagination" class="row">
+        <div class="col d-flex justify-content-center">
             <nav aria-label="Page Navigation">
                 <ul class="pagination primary">
                     <li class="page-item" :class="{ disabled: disablePreviousButton }">

@@ -21,8 +21,8 @@ export const usePageNavigation = () => {
     });
 
     return {
-        disablePreviousButton: computed(() => currentPage.value === 1),//currentPage.value === 1,
-        disableNextButton: computed(() => currentPage.value === lastPage.value),//currentPage.value === lastPage.value,
+        disablePreviousButton: computed(() => currentPage.value === 1),
+        disableNextButton: computed(() => currentPage.value === lastPage.value),
         nextPage: () => { currentPage.value++; callBack.value(); },
         previousPage: () => { currentPage.value--; callBack.value(); },
         goToPage: (page: number) => { currentPage.value = page; callBack.value(); },
