@@ -2,7 +2,7 @@
     <div class="row m-2 align-items-center">
         <div class="col">
             <div class="form-floating">
-                <input type="text" class="form-control m-1" id="txtSearch" placeholder="Buscar" v-model="searchTerm" @keyup="searchKeyUp" maxlength="50">
+                <input type="text" class="form-control" id="txtSearch" placeholder="Buscar" v-model="searchTerm" @keyup="searchKeyUp" maxlength="50">
                 <label for="txtSearch">Buscar Cliente</label>
             </div>
         </div>

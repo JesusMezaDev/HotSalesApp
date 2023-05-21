@@ -1,9 +1,9 @@
 <template>
     <div class="row m-2">
         <div class="col-4" v-for="customer in customerStore.customerStoreList">
-            <div class="card mt-2 mb-2 p-1 h-100 border-secondary">
+            <div class="card mt-2 mb-2 p-1 border-secondary">
                 <div class="row">
-                    <div class="col">
+                    <div class="col d-flex h-100 justify-content-center align-items-center">
                         <img :src="customer.ImageUrl || '/src/assets/NoImagePlaceholder.png'" class="img-thumbnail" alt="No Image">
                     </div>
                     <div class="col">
@@ -48,5 +48,7 @@
 </script>
 
 <style scoped>
-
+    .card {
+        min-height: 350px;
+    }
 </style>
